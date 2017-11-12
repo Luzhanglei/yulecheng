@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<!-- 关闭动态方法调用 -->
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <!-- 设置开发者模式 -->
+    <constant name="struts.devMode" value="true" />
+    <!-- 指定struts2使用Spring的IoC容器 -->
+    <constant name="struts.objectFactory" value="spring"/>
+    <!-- 设置上传文件不能超过10M -->
+	<constant name="struts.multipart.maxSize" value="10485760"/>
+	<!-- 设置struts过滤器不对static目录进行特殊处理，避免自定义static目录无法访问 -->
+	<constant name="struts.serve.static" value="false"/>
+	<!-- 强制使用action后缀访问struts的Action -->
+	<constant name="struts.action.extension" value="action"/>
+	<package name="default" namespace="/" extends="struts-default" strict-method-invocation="false">
+		<!-- 定义一个默认的Action方法，如果在地址栏中输入的Action不存在，即执行notFound的action  -->
+   	    <default-action-ref name="notFound" />
+		<global-results>
+			<result name="success">/WEB-INF/pages/public/success.html</result>
+			<result name="error">/WEB-INF/pages/public/error.html</result>
+			<result name="fail">/WEB-INF/pages/public/fail.html</result>
+			<result name="notFound">/WEB-INF/pages/public/404.html</result>
+		</global-results>	
+   	    
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception" />
+		</global-exception-mappings>	
+	    <action name="welcomeAction_*" class="welcomeAction" method="{1}">
+			 <result name="{1}">/WEB-INF/pages/welcomeAction/{1}.html</result>
+			 <result name="main">/WEB-INF/pages/welcomeAction/main.html</result>
+			 <result name="welcome">/WEB-INF/pages/welcomeAction/welcome.html</result>
+			<result name="index">/index.html</result>
+		</action>
+	</package>
+	<!--  <include file="struts-system.xml" />  -->
+</struts>
