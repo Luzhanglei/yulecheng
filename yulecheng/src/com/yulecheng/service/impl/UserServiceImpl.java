@@ -4,6 +4,8 @@ import com.yulecheng.dao.UserDao;
 import com.yulecheng.entity.User;
 import com.yulecheng.service.UserService;
 import com.yulecheng.vo.UserVo;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,11 @@ public class UserServiceImpl
   
   public boolean update(User user)
   {
-    return this.userDao.saveOrUpdate(user);
+    String changeRow = this.userDao.save(user);
+    if(StringUtils.isNoneBlank(changeRow)){
+    	return true;
+    }else{
+    	return false;
+    }
   }
 }

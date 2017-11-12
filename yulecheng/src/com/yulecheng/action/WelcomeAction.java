@@ -77,9 +77,10 @@ public class WelcomeAction
     printJSONObject(this.buildSuccessResult);
   }
   
-  public String register()
+  public void register() throws IOException
   {
-    return "register";
+	  this.buildSuccessResult = ResultData.buildSuccessResult("注册校验");
+	  printJSONObject(this.buildSuccessResult);
   }
   
   public void add()
